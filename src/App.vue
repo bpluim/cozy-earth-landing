@@ -1,20 +1,22 @@
 <template>
   <div class="container-fluid main">
-    <div class="row imgBg">
-      <div class="marBg col-sm-4 col-md-3" />
-      <div class="titleDetails">
-        <h1>Explore</h1>
-        <div class="moreDetails" :class={} data-bs-toggle="modal" data-bs-target="#exampleModal" >
-          <img class="moreBtn" src="./assets/Plus.svg"/>
-          <p>More Details</p>
+    <div class="imgBg">
+      <div class="row overlay">
+        <div class="marBg col-4 col-md-3" />
+        <div :class="[active ? 'active' : '', 'titleDetails']">
+          <h1>Explore</h1>
+          <div class="moreDetails" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+            <img class="moreBtn" src="./assets/Plus.svg" @click="toggleMainTitle"/>
+            <p>More Details</p>
+          </div>
+        </div>
+        <div class="socials col-8">
+          <img class="facebook" src="./assets/Facebook.svg" />
+          <img class="instagram" src="./assets/Instagram.svg" />
         </div>
       </div>
-      <div class="socials col-8">
-        <img class="facebook" src="./assets/Facebook.svg" />
-        <img class="instagram" src="./assets/Instagram.svg" />
-      </div>
     </div>
-    <ExploreModal title="Explore" :body="modalBody"/>
+    <ExploreModal title="Explore" :body="modalBody" active="active" @toggle-active="toggleMainTitle" />
   </div>
 </template>
 
@@ -31,12 +33,11 @@ export default {
   data() {
     return {
       modalBody,
+      active: false,
     }
   },
   methods: {
-    removeMainTitle() {
-      
-    }
+    toggleMainTitle() {this.active = !this.active;}
   }
 }
 </script>
@@ -55,6 +56,7 @@ export default {
   /*background: #611818;*/
   height: 100vh;
   width: 100vw;
+  padding: 0 !important;
 }
 
 .marBg {
@@ -70,17 +72,28 @@ export default {
   height: 100vh;
 }
 
+.overlay {
+  height: 100%;
+  width: 100%;
+  margin: 0 !important;
+  background: #28222269;
+}
+
 .titleDetails {
   width: auto;
   position: absolute;
   text-align: left;
   top: 50%;
-  left: 15%;
+  left: 10%;
 }
 
 .titleDetails h1 {
   font-size: 4rem;
   font-family: 'Libre Bodoni', serif;
+}
+
+.active {
+  display: none;
 }
 
 .moreDetails {

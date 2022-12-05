@@ -4,10 +4,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="close-btn">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="$emit('toggle-active', active)" />
                     </div>
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ title }}</h1>
-                    <hr />
+                    <div class="modal-title fs-5" id="exampleModalLabel">
+                        <div class="title">{{ title }}</div>
+                        <div class="underline" />
+                    </div>
                 </div>
                 <div class="modal-body">
                     <p>{{ body }}</p>
@@ -32,6 +34,7 @@ export default {
     props: {
         title: String,
         body: String,
+        active: Boolean,
     }
 }
 </script>
@@ -50,8 +53,8 @@ export default {
     border-bottom: none;
 }
 
-.modal-header h1 {
-    font-size: 2rem !important;
+.title {
+    font-size: 3rem !important;
     font-family: 'Libre Bodoni', serif;
     color: #611818;
 }
@@ -62,8 +65,25 @@ export default {
     width: 100%;
 }
 
-.btn-close[aria-label] {
+.close-btn button {
+    border-radius: none;
+}
+
+.close-btn button[aria-label] {
     color: #611818;
+}
+
+.modal-title {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+.underline {
+    width: 40%;
+    background: linear-gradient(90deg, #611818 20%, #fff);
+    height: 3px;
+    border-radius: 5px;
 }
 
 .modal-title, .modal-body, .modal-footer {
@@ -78,7 +98,7 @@ export default {
 }
 
 .modal-body p {
-    font-size: .75rem;
+    font-size: 1rem;
 }
 
 .modal-footer {
@@ -93,7 +113,8 @@ export default {
 @media (min-width: 692px) {
     .modal {
         width: 650px;
-        top: 150px;
+        top: 200px;
+        left: 150px;
     }
 
     .modal-body p {
